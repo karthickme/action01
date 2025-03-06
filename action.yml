@@ -15,6 +15,9 @@ runs:
   steps:
     - name: Checkout
       uses: actions/checkout@v4
+    - name: list all files
+      shell: bash
+      run: ls * -r
     - name: Install Python
       uses: actions/setup-python@v4
       with:
