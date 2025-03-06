@@ -5,6 +5,26 @@ inputs:
     description: 'Enter a number'
     required: true
     default: "1"
+  to_id:
+    description: 'primary email that needs to be addressed to'
+    required: true
+    default: "sre_nxg_gen_ops@hm.com"
+  cc_id:
+    description: 'primary email that needs to be addressed to'
+    required: true
+    default: ""
+  start_time:
+    description: 'time when the run started'
+    required: true
+    default: ""
+  content:
+    description: 'content of the email'
+    required: true
+    default: ""
+  failure:
+    description: 'failure message'
+    required: true
+    default: ""
 outputs:
   num_squared:
     description: 'Square of the input'
@@ -13,6 +33,10 @@ outputs:
 runs:
   using: 'composite'
   steps:
+    - name: End Time
+      shell: bash
+      id: end_time
+      run: echo "END_TIME=$(date +%s%3N)" >> $GITHUB_ENV
     - name: Checkout
       uses: actions/checkout@v4
     - name: list all action files
@@ -31,6 +55,12 @@ runs:
     - name: Pass Inputs to Shell
       run: |
           echo "INPUT_NUM=${{ inputs.num }}" >> $GITHUB_ENV
+          echo "INPUT_TO_ID=${{ inputs.to_id }}" >> $GITHUB_ENV
+          echo "INPUT_CC_ID=${{ inputs.cc_id }}" >> $GITHUB_ENV
+          echo "INPUT_START_TIME=${{ inputs.start_time }}" >> $GITHUB_ENV
+          echo "INPUT_END_TIME=${{ env.END_TIME }}" >> $GITHUB_ENV
+          echo "INPUT_CONTENT=${{ inputs.content }}" >> $GITHUB_ENV
+          echo "INPUT_FAILURE=${{ inputs.failure }}" >> $GITHUB_ENV
       shell: bash
     - name: Fetch the number's square
       id: get-square
