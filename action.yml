@@ -1,4 +1,3 @@
-# action.yaml
 name: 'Custom Github Action'
 description: 'A Github Action that takes an input and returns the square of the number'
 inputs:
