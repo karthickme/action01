@@ -15,7 +15,10 @@ runs:
   steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: list all files
+    - name: list all action files
+      shell: bash
+      run: ls ${GITHUB_ACTION_PATH} * -r
+    - name: list all repo files
       shell: bash
       run: ls * -r
     - name: Install Python
@@ -23,7 +26,7 @@ runs:
       with:
         python-version: '3.10'
     - name: Install Dependencies
-      run: pip install -r requirements.txt
+      run: pip install -r ${GITHUB_ACTION_PATH}/requirements.txt
       shell: bash
     - name: Pass Inputs to Shell
       run: |
