@@ -1,0 +1,8 @@
+name: Check Github Objects
+on: [workflow_dispatch, push, ]
+jobs:
+  gh-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: print gh element
+        run: echo ${{ toJSON(github) }}
